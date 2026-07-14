@@ -2,7 +2,7 @@
   "name": "gqlsift",
   "version": "0.1.0",
   "description": "GraphQL schema diff and operation linter — breaking-change verdicts against real recorded queries, complexity scores and unused-field reports in one zero-dependency CLI.",
-  "author": "JaydenCJ",
+  "author": "JaydenCJ <aisingioro.kiyon@gmail.com>",
   "license": "MIT",
   "type": "module",
   "bin": {
