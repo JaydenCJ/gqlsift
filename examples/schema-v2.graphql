@@ -1,0 +1,68 @@
+# The "after" schema: a proposed release with six months of accumulated
+# edits — some safe, some dangerous, some that break recorded clients.
+
+type Query {
+  user(id: ID!): User
+  users(role: Role = MEMBER, first: Int): [User!]!
+  search(term: String!, scope: SearchScope!): [SearchResult!]!
+  post(id: ID!): Post
+}
+
+type Mutation {
+  createPost(input: CreatePostInput!): Post!
+  deletePost(id: ID!): Boolean!
+}
+
+interface Node {
+  id: ID!
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+  role: Role!
+  posts(first: Int = 20): [Post!]!
+  avatarUrl(size: Int): String
+  team: Team
+}
+
+type Team {
+  id: ID!
+  name: String!
+}
+
+type Post implements Node {
+  id: ID!
+  title: String!
+  body: String! @deprecated(reason: "Use excerpt fields once they land")
+  author: User!
+  tags: [String!]!
+  comments(first: Int): [Comment!]!
+}
+
+type Comment implements Node {
+  id: ID!
+  text: String
+  author: User!
+}
+
+union SearchResult = User | Post | Comment
+
+enum Role {
+  ADMIN
+  MEMBER
+  OWNER
+}
+
+enum SearchScope {
+  ALL
+  PEOPLE
+  CONTENT
+}
+
+input CreatePostInput {
+  title: String!
+  body: String!
+  tags: [String!]
+  authorId: ID!
+}

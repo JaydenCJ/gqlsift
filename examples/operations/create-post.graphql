@@ -1,0 +1,8 @@
+# Recorded from the composer. The input object arrives via a variable.
+mutation CreatePost($input: CreatePostInput!) {
+  createPost(input: $input) {
+    id
+    title
+    body
+  }
+}

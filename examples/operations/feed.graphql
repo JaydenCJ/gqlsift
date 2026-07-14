@@ -1,0 +1,21 @@
+# Recorded from the home feed — the deep one that complexity limits exist for.
+query Feed {
+  users(first: 20) {
+    id
+    name
+    posts {
+      ...PostSummary
+      comments {
+        text
+        author {
+          name
+        }
+      }
+    }
+  }
+}
+
+fragment PostSummary on Post {
+  id
+  title
+}

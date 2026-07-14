@@ -1,0 +1,19 @@
+# Recorded from the global search bar.
+query Search($term: String!) {
+  search(term: $term) {
+    ... on User {
+      id
+      name
+    }
+    ... on Post {
+      id
+      title
+      comments(first: 3) {
+        text
+        author {
+          name
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+# The "before" schema: what production currently serves, and what the
+# operations in examples/operations/ were recorded against.
+
+type Query {
+  user(id: ID!): User
+  users(role: Role = MEMBER, first: Int): [User!]!
+  search(term: String!): [SearchResult!]!
+  post(id: ID!): Post
+}
+
+type Mutation {
+  createPost(input: CreatePostInput!): Post!
+  deletePost(id: ID!): Boolean!
+}
+
+interface Node {
+  id: ID!
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+  email: String!
+  nickname: String
+  role: Role!
+  posts(first: Int = 10): [Post!]!
+  avatarUrl(size: Int): String
+}
+
+type Post implements Node {
+  id: ID!
+  title: String!
+  body: String!
+  author: User!
+  tags: [String!]!
+  comments(first: Int): [Comment!]!
+}
+
+type Comment implements Node {
+  id: ID!
+  text: String!
+  author: User!
+}
+
+union SearchResult = User | Post
+
+enum Role {
+  ADMIN
+  MEMBER
+  GUEST
+}
+
+input CreatePostInput {
+  title: String!
+  body: String!
+  tags: [String!]
+}

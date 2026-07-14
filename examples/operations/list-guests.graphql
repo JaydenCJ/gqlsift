@@ -1,0 +1,7 @@
+# Recorded from the admin console's guest-cleanup job.
+query ListGuests {
+  users(role: GUEST, first: 20) {
+    id
+    name
+  }
+}

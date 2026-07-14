@@ -1,0 +1,8 @@
+# Recorded from the directory filter — the role arrives as a variable,
+# so the concrete value is only known at runtime.
+query UsersByRole($role: Role!) {
+  users(role: $role) {
+    id
+    name
+  }
+}
